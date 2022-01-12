@@ -106,4 +106,10 @@ values('A2','AMO', 33),
 		('A2','AMO', 33);
 
 
+-- 	Write a SQL statement insert rows from country_new table to countries table.
+insert into country 
+select COUNTRY_ID, COUNTRY_NAME , REGION_ID from pelumi_duplicate 
+WHERE REGION_ID in (33,44,32);
+
+
 
