@@ -1,3 +1,10 @@
+-- creating a COUNTRY table
+CREATE TABLE country( 
+COUNTRY_ID varchar(5),
+COUNTRY_NAME varchar(40),
+REGION_ID decimal(10,0)
+);
+
 -- Write a query to display the names (first_name, last_name) using alias name “First Name", "Last Name"
 SELECT first_name First_Name, last_name "Last Name"
 from employees;
@@ -102,14 +109,55 @@ values('A1','AMC',null);
 -- Write a SQL statement to insert 3 rows by a single insert statement.
 insert into pelumi_duplicate 
 values('A2','AMO', 33),
-		('A2','AMO', 33),
-		('A2','AMO', 33);
+		('AA','AOO', 44),
+		('AV','AOM', 32);
 
 
 -- 	Write a SQL statement insert rows from country_new table to countries table.
 insert into country 
 select COUNTRY_ID, COUNTRY_NAME , REGION_ID from pelumi_duplicate 
 WHERE REGION_ID in (33,44,32);
+
+
+-- Write a SQL statement to insert rows into the table countries in which the value of country_id column will be unique and auto incremented.
+-- Create the table countries.
+CREATE TABLE IF NOT EXISTS countries ( 
+COUNTRY_ID integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
+COUNTRY_NAME varchar(40) NOT NULL,
+REGION_ID integer NOT NULL
+);
+INSERT INTO countries(COUNTRY_NAME,REGION_ID) VALUES('India',185);
+
+
+-- editing a table and changing it datatype from varchar(25) to varchar(50).
+alter table employees modify column EMAIL varchar(50);
+
+
+-- Write a SQL statement to change the email column of employees table with 'not available' for all employees.
+update employees 
+set EMAIL = "not available";
+
+-- Note this above update querries will throw erro
+-- because our EMAIL column has a unique key constraint
+-- so then i had to remove the constraint by runing 
+-- the very first two querries below before running the above 
+-- UPDATE querry to solve the problem given
+
+
+-- A unique constraint is also an index.
+-- First  SHOW INDEX FROM tbl_name to find out the name of the index. 
+-- The name of the index is stored in the column called key_name in the results of that query.
+show index from employees;  
+-- Note this above query was ran before finally solving 
+-- the very first below problem so as to get the name of the column key.
+
+
+-- deleting the unique key constraint from the Email Column in EMPLOYEE's table
+ALTER table employees drop constraint EMP_EMAIL_UK;
+
+
+
+
 
 
 
